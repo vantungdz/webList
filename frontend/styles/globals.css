@@ -17,9 +17,8 @@
 }
 
 .site-layout .site-layout-background {
-  background: #fff;
-}
-
-.layout {
-  height: 100vh;
+  background: pink;
+  position: fixed;
+  margin-left: 210px;
+  width: 100%;
 }
