@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const PORT = process.env.PORT || 5000;
 const URL = "mongodb+srv://dvtung7f6:25fRdakISMukg25J@cluster0.6desfmr.mongodb.net/Demo?retryWrites=true&w=majority";
 
-async function connect() {
+async function connect(afterSuccess) {
   try {
     mongoose
       .connect(URL, {
@@ -12,7 +12,7 @@ async function connect() {
       })
       .then(() => {
         console.log("Connect to mongodb successfuly");
-
+        afterSuccess(PORT)
       })
       .catch((err) => console.log("Connect to mongodb fail, error:", err));
   } catch (error) {}

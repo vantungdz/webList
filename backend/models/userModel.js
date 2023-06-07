@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema
 
 const User = new mongoose.Schema(
   {
     name: String,
+    email:String,
     age: Number
   }
 );

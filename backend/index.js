@@ -7,7 +7,11 @@ const app = express();
 
 //connection to DB
 
-db.connect();
+db.connect((PORT)=>{
+    app.listen(PORT,() =>{
+        console.log(PORT)
+    })
+});
 
 app.use(bodyParser.json({ limit: "30mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "30mb" }));
@@ -16,4 +20,4 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Connection successfuly");
 });
-app.get("/api/v1/danh_sach", user);
+app.use("/api/v1/danh_sach", user);

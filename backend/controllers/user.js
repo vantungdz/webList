@@ -1,11 +1,11 @@
-const { UserModel } = require('../models/userModel.js');
+const  User  = require('../models/userModel.js');
 
 const getUser = async (req, res) => {
   try {
-    const user = await UserModel.find();
+    const user = await User.find();
     res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ error: err });
+    res.status(500).json({ error });
   }
 };
 
