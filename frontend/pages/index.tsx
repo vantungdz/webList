@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState , useMemo } from "react";
+import axios from 'axios';
 import {
   AppstoreOutlined,
   BarChartOutlined,
@@ -12,7 +13,7 @@ import {
 import type { MenuProps } from "antd";
 import { Layout, Menu, theme ,Row , Col ,Card} from "antd";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Sider } = Layout;
 
 const items: MenuProps["items"] = [
   UserOutlined,
@@ -30,9 +31,24 @@ const items: MenuProps["items"] = [
 }));
 
 const App: React.FC = () => {
+  const [data , setData] = useState([]);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+  const fetchData = () => {
+    axios.get(`http://localhost:5000/api/v1/fetchList`)
+    .then(res =>{
+        setData(res.data)
+    })
+    .catch(error => console.log('err' , error))
+  }
+
+  useEffect(()=>{
+    fetchData();
+  },[])
+
+
 
   return (
     <Layout hasSider>
@@ -60,25 +76,23 @@ const App: React.FC = () => {
           <div
             style={{
               padding: '10px 16px',
-              textAlign: "center",
               background: colorBgContainer,
             }}
           >
             <Row gutter={16}>
               <Col span={6} style={{marginTop:10}}>
-                <Card
-                  hoverable
-                  cover={
-                    <img
-                      alt="example"
-                      src="https://anhdep123.com/top-300-hinh-nen-anh-thien-nhien-4k-chat-luong-cao/hinh-nen-thien-nhien-4k/"
-                    />
-                  }
-                >
-                  <h3>ID :</h3>
-                  <h3>Name :</h3>
-                </Card>
-              </Col>
+                  <Card
+                    hoverable
+                    cover={
+                      <img
+                        alt="example"
+                        src="https://anhdep123.com/top-300-hinh-nen-anh-thien-nhien-4k-chat-luong-cao/hinh-nen-thien-nhien-4k/"
+                      />
+                    }
+                  >
+                    <h3>ID :</h3>
+                    <h3>Name :</h3> </Card>
+                </Col>
             </Row>
           </div>
         </Content>
