@@ -1,6 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 const user = require('./routers/user');
 const db = require('./config/index')
 const app = express();
@@ -9,15 +7,13 @@ const app = express();
 
 db.connect((PORT)=>{
     app.listen(PORT,() =>{
-        console.log(PORT)
+        console.log('PORT' , PORT)
     })
 });
 
-app.use(bodyParser.json({ limit: "30mb" }));
-app.use(bodyParser.urlencoded({ extended: true, limit: "30mb" }));
 app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Connection successfuly");
 });
-app.use("/api/v1/danh_sach", user);
+app.use("/api/v1/fetchList", user);
