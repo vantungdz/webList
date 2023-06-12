@@ -12,6 +12,8 @@ import {
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Layout, Menu, theme ,Row , Col ,Card} from "antd";
+import {User} from './model'
+import Image from 'next/image';
 
 const { Header, Content, Sider } = Layout;
 
@@ -36,19 +38,13 @@ const App: React.FC = () => {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const fetchData = () => {
-    axios.get(`http://localhost:5000/api/v1/fetchList`)
+  useEffect(()=>{
+    (axios.get(`http://localhost:5000/api/v1/fetchList`)
     .then(res =>{
         setData(res.data)
     })
-    .catch(error => console.log('err' , error))
-  }
-
-  useEffect(()=>{
-    fetchData();
+    .catch(error => console.log('err' , error)))
   },[])
-
-
 
   return (
     <Layout hasSider>
@@ -80,19 +76,24 @@ const App: React.FC = () => {
             }}
           >
             <Row gutter={16}>
-              <Col span={6} style={{marginTop:10}}>
-                  <Card
-                    hoverable
-                    cover={
-                      <img
-                        alt="example"
-                        src="https://anhdep123.com/top-300-hinh-nen-anh-thien-nhien-4k-chat-luong-cao/hinh-nen-thien-nhien-4k/"
-                      />
-                    }
-                  >
-                    <h3>ID :</h3>
-                    <h3>Name :</h3> </Card>
+              {data && data.map((item : User) => (
+                <Col span={6} style={{marginTop:10}}>
+                <Card
+                  hoverable
+                  cover={
+                    <Image
+                      alt="avatar"
+                      src= {item.image}
+                      height={200}
+                      width={350}
+                    />
+                  }
+                >
+                  <h4>Name : {item.name}</h4>
+                  <h4>Email : {item.email}</h4>
+                </Card>
                 </Col>
+              ))}
             </Row>
           </div>
         </Content>
