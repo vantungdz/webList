@@ -1,4 +1,4 @@
-import Employee from '../component/user/employee'
+import Employee from '../component/user/employeeDetail'
 import { usePathname } from 'next/navigation'
 
 const Employeee: React.FC = () => {

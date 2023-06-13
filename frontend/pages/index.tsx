@@ -1,15 +1,13 @@
 import React, { useEffect, useState, useMemo } from "react";
 import axios from "axios";
-import {
-  UserOutlined
-} from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Layout, Menu, theme, Row, Col, Card } from "antd";
-import { User } from "./model";
-import Image from "next/image";
-import Link from "next/link";
+import Employee from "../component/user/employee";
+import EmployeeDetail from "../component/user/employeeDetail";
+import { EmployeeModel } from "@/model/modelEmployee";
 
-const { Header, Content, Sider } = Layout;
+const { Header, Sider,Content } = Layout;
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -29,12 +27,10 @@ function getItem(
   } as MenuItem;
 }
 
-const items: MenuItem[] = [
-  getItem("Danh sach NV", "1", <UserOutlined />),
-];
+const items: MenuItem[] = [getItem("Danh sach NV", "1", <UserOutlined />)];
 
 const App: React.FC = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<EmployeeModel[]>([]);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -68,39 +64,17 @@ const App: React.FC = () => {
           items={items}
         />
       </Sider>
-      <Layout className="site-layout" style={{ marginLeft: 200 }}>
+      <Layout className="site-layout" style={{ marginLeft: 180 }}>
         <Header style={{ padding: 0, background: colorBgContainer }} />
         <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
           <div
             style={{
               padding: "10px 16px",
-              background: colorBgContainer,
             }}
           >
-            <Row gutter={16}>
-              {data &&
-                data.map((item: User) => (
-                  <Col span={6} style={{ marginTop: 10 }}>
-                    <Link href={`/${item._id}`}>
-                      <Card
-                        hoverable
-                        cover={
-                          <Image
-                            alt="avatar"
-                            src={item.image}
-                            height={200}
-                            width={350}
-                          />
-                        }
-                      >
-                        <h4>Name : {item.name}</h4>
-                        <h4>Email : {item.email}</h4>
-                      </Card>
-                    </Link>
-                  </Col>
-                ))}
-            </Row>
-          </div>
+        {/* <Employee data={data}/> */}
+        <EmployeeDetail />
+        </div>
         </Content>
       </Layout>
     </Layout>
