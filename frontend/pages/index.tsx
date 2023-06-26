@@ -31,9 +31,6 @@ const items: MenuItem[] = [getItem("Danh sach NV", "1", <UserOutlined />)];
 
 const App: React.FC = () => {
   const [data, setData] = useState<EmployeeModel[]>([]);
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
 
   useEffect(() => {
     axios
@@ -60,22 +57,13 @@ const App: React.FC = () => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["4"]}
+          defaultSelectedKeys={["1"]}
           items={items}
         />
       </Sider>
       <Layout className="site-layout" style={{ marginLeft: 180 }}>
-        <Header style={{ padding: 0, background: colorBgContainer }} />
-        <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
-          <div
-            style={{
-              padding: "10px 16px",
-            }}
-          >
-        {/* <Employee data={data}/> */}
-        <EmployeeDetail />
-        </div>
-        </Content>
+        <Employee data={data}/>
+        {/* <EmployeeDetail /> */}
       </Layout>
     </Layout>
   );
